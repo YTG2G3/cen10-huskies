@@ -31,4 +31,4 @@ All libraries and images/icons used are either open-sourced or sanctioned by the
 Cen10 Huskies has adopted the MIT License, which allows other schools to openly use our code. You're welcomed!
 
 ## Acknowledgement
-Special thanks to the brilliant designer Erica Lam who created the logo for us.
+Special thanks to our brilliant designer, Erica Lam, who created the logo for us.
