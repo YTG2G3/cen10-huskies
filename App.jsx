@@ -7,7 +7,7 @@ import { fauth, fuser } from "./lib/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { LoginScreen, ScheduleScreen, SplashScreen, SignupScreen } from "./screens";
+import { AuthScreen, ScheduleScreen, SplashScreen } from "./screens";
 import 'react-native-gesture-handler';
 
 // Auth navigator
@@ -54,8 +54,7 @@ export default function App() {
                     </Drawer.Navigator>
                 ) : ( // Logged out
                     <Stack.Navigator screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name="login" component={LoginScreen} />
-                        <Stack.Screen name="signup" component={SignupScreen} />
+                        <Stack.Screen name="auth" component={AuthScreen} />
                     </Stack.Navigator>
                 )}
             </NavigationContainer>

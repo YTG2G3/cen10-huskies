@@ -1,0 +1,30 @@
+.container {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.txt {
+    font-size: 60px;
+}
+
+.inp {
+    width: 80%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.btncol {
+    margin-top: 20px;
+    flex-direction: row;
+}
+
+.err {
+    font-size: 20px;
+    color: #F24343;
+}
+
+.btn {
+    margin-right: 20px;
+}
