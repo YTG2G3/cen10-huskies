@@ -1,11 +1,11 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { SafeAreaView, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { fauth } from "../lib/firebase";
 import styles from '../styles/login.scss';
 
-export default function AuthScreen() {
+export default function LoginScreen() {
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(undefined);
 
@@ -26,6 +26,18 @@ export default function AuthScreen() {
 
         // Attempt complete (may be either success or fail)
         setLoading(false);
+    }
+
+    const attemptSignup = async () => {
+        // Start sign up
+        setLoading(true);
+
+        // Sign up
+        try {
+            await createUserWithEmailAndPassword(fauth, email, password);
+        } catch (error) {
+
+        }
     }
 
     // TODO - helpertext for textinputs

@@ -1,6 +1,7 @@
 // Bundling all the screens
-import AuthScreen from "./auth-screen";
+import LoginScreen from "./login-screen";
 import ScheduleScreen from "./schedule-screen";
 import SplashScreen from "./splash-screen";
 
-export { SplashScreen, AuthScreen, ScheduleScreen }
+
+export { SplashScreen, LoginScreen, ScheduleScreen }
