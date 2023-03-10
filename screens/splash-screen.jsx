@@ -3,12 +3,15 @@ import styles from '../styles/splash.scss';
 import { useSpring, animated, config } from "@react-spring/native";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from 'react-native-paper';
+import { useState } from "react";
 
 const { width, height } = Dimensions.get('window');
 const logoDim = Math.min(width, height);
 const logoMax = 250;
 
-export default function SplashScreen({ loading, setLoading }) {
+export default function SplashScreen({ cb }) {
+    let [loading, setLoading] = useState(false);
+
     // Fade animation
     let fadeAnim = useSpring({
         from: { opacity: 0 },
@@ -25,12 +28,8 @@ export default function SplashScreen({ loading, setLoading }) {
         config: { friction: 10 },
         onRest: () => {
             setTimeout(() => {
+                cb();
                 setLoading(true);
-
-                // TODO - hard coding
-                setTimeout(() => {
-                    setLoading(false);
-                }, 500);
             }, 500);
         }
     });
