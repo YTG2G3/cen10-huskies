@@ -39,7 +39,7 @@ export default function App() {
         loadDarkMode();
 
         // Firebase session
-        let unsub = fauth.onAuthStateChanged(fb => fb ? onLogin(fb) : setUser(undefined));
+        let unsub = fauth.onAuthStateChanged(fb => fb ? onLogin(fb) : undefined);
         return () => unsub();
     }, []);
 
@@ -71,7 +71,7 @@ export default function App() {
     if (splash || !fontLoaded) return <SplashScreen cb={() => setSplash(false)} />;
 
     return (
-        <SiteContext.Provider value={{ user, dark, setDark }}>
+        <SiteContext.Provider value={{ user, setUser, dark, setDark }}>
             <PaperProvider theme={dark ? darkTheme : lightTheme}>
                 <NavigationContainer theme={dark ? darkTheme : lightTheme}>
                     {user ? ( // Logged in
