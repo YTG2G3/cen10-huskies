@@ -20,6 +20,7 @@ Cen10 Huskies was specifically created for Centennial High School to facilitate 
 - Google Fonts (Poppins)
 - React Native Paper (Material Design & Components)
 - React Navigation (Screen Navigation)
+- React Native Calendars (ft. Wix for the Calendar Component)
 
 ## Future Advancements
 - Explicit content filtering on photos people upload
@@ -28,7 +29,7 @@ Cen10 Huskies was specifically created for Centennial High School to facilitate 
 All libraries and images/icons used are either open-sourced or sanctioned by the creator for usage.
 
 ## License
-Cen10 Huskies has adopted the MIT License, which allows other schools to openly use our code. You're welcomed!
+Cen10 Huskies has adopted the MIT License, which allows other schools to use our code without restrictions. You're welcomed!
 
 ## Acknowledgement
 Special thanks to our brilliant designer, Erica Lam, who created the logo for us.
