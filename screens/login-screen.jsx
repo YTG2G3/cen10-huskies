@@ -1,11 +1,12 @@
+import { StatusBar } from "expo-status-bar";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { SafeAreaView, View } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Snackbar, Text, TextInput } from "react-native-paper";
 import { fauth } from "../lib/firebase";
 import styles from '../styles/login.scss';
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(undefined);
 
@@ -15,6 +16,8 @@ export default function LoginScreen() {
     const attemptLogin = async () => {
         // Start login
         setLoading(true);
+
+        // TODO - validity check
 
         // Login
         try {
@@ -28,23 +31,12 @@ export default function LoginScreen() {
         setLoading(false);
     }
 
-    const attemptSignup = async () => {
-        // Start sign up
-        setLoading(true);
-
-        // Sign up
-        try {
-            await createUserWithEmailAndPassword(fauth, email, password);
-        } catch (error) {
-
-        }
-    }
-
     // TODO - helpertext for textinputs
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar hidden />
+
             <Text style={styles.txt}>Log In</Text>
-            <Text style={styles.err}>{error}</Text>
 
             <TextInput style={styles.inp} label="Email" value={email} onChangeText={setEmail} left={
                 <TextInput.Icon icon="email" />
@@ -57,8 +49,10 @@ export default function LoginScreen() {
             <View style={styles.btncol}>
                 <Button style={styles.btn} icon="login" loading={loading} disabled={loading} mode="contained" onPress={attemptLogin}>Log In</Button>
 
-                <Button icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={attemptLogin}>Sign Up</Button>
+                <Button icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={() => navigation.navigate("signup")}>Sign Up</Button>
             </View>
+
+            <Snackbar visible={error} onDismiss={() => setError(undefined)}>{error}</Snackbar>
         </SafeAreaView >
     );
 }

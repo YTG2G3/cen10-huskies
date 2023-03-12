@@ -4,10 +4,10 @@ import theme from "./lib/theme";
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import { useEffect, useState } from "react";
 import { fauth, fuser } from "./lib/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { LoginScreen, ScheduleScreen, SplashScreen } from "./screens";
+import { LoginScreen, ScheduleScreen, SignupScreen, SplashScreen } from "./screens";
 import 'react-native-gesture-handler';
 
 // Auth navigator
@@ -55,6 +55,7 @@ export default function App() {
                 ) : ( // Logged out
                     <Stack.Navigator screenOptions={{ headerShown: false }}>
                         <Stack.Screen name="auth" component={LoginScreen} />
+                        <Stack.Screen name="signup" component={SignupScreen} />
                     </Stack.Navigator>
                 )}
             </NavigationContainer>

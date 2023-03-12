@@ -2,6 +2,6 @@
 import LoginScreen from "./login-screen";
 import ScheduleScreen from "./schedule-screen";
 import SplashScreen from "./splash-screen";
+import SignupScreen from "./signup-screen";
 
-
-export { SplashScreen, LoginScreen, ScheduleScreen }
+export { SplashScreen, LoginScreen, ScheduleScreen, SignupScreen }
