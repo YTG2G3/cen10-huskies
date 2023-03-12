@@ -10,7 +10,8 @@
             "**/*"
         ],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "icon": "./assets/logo.png"
         },
         "android": {
             "adaptiveIcon": {
