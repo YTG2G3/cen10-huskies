@@ -1,14 +1,18 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
-import theme from "./lib/theme";
+import { lightTheme, darkTheme } from "./lib/theme";
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import { useEffect, useState } from "react";
 import { fauth, fuser } from "./lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { LoginScreen, ScheduleScreen, SignupScreen, SplashScreen } from "./screens";
+import { LoginScreen, ProfileScreen, ScheduleScreen, SignupScreen, SplashScreen } from "./screens";
 import 'react-native-gesture-handler';
+import SiteContext from "./lib/site-context";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from "./components/header";
+import CustomDrawer from "./components/custom-drawer";
 
 // Auth navigator
 const Stack = createNativeStackNavigator();
@@ -20,6 +24,9 @@ export default function App() {
     // User
     let [user, setUser] = useState(undefined);
 
+    // THE DARK SIDE
+    let [dark, setDark] = useState(false);
+
     // Is displaying splash screen?
     let [splash, setSplash] = useState(true);
 
@@ -28,9 +35,27 @@ export default function App() {
 
     // Listen to auth changes
     useEffect(() => {
-        let unsub = fauth.onAuthStateChanged(fb => fb ? onLogin(fb) : undefined);
+        // Dark mode?
+        loadDarkMode();
+
+        // Firebase session
+        let unsub = fauth.onAuthStateChanged(fb => fb ? onLogin(fb) : setUser(undefined));
         return () => unsub();
     }, []);
+
+    // Dark mode
+    const loadDarkMode = async () => {
+        try {
+            let d = JSON.parse(await AsyncStorage.getItem("dark"));
+
+            if (d) setDark(d);
+            else AsyncStorage.setItem("dark", "false");
+        } catch (error) {
+            AsyncStorage.setItem("dark", "false");
+        }
+    };
+
+    useEffect(() => { AsyncStorage.setItem("dark", JSON.stringify(dark)) }, [dark]);
 
     // On login
     const onLogin = async ({ uid }) => {
@@ -46,19 +71,22 @@ export default function App() {
     if (splash || !fontLoaded) return <SplashScreen cb={() => setSplash(false)} />;
 
     return (
-        <PaperProvider theme={theme}>
-            <NavigationContainer>
-                {user ? ( // Logged in
-                    <Drawer.Navigator>
-                        <Drawer.Screen name="schedule" component={ScheduleScreen} />
-                    </Drawer.Navigator>
-                ) : ( // Logged out
-                    <Stack.Navigator screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name="auth" component={LoginScreen} />
-                        <Stack.Screen name="signup" component={SignupScreen} />
-                    </Stack.Navigator>
-                )}
-            </NavigationContainer>
-        </PaperProvider>
+        <SiteContext.Provider value={{ user, dark, setDark }}>
+            <PaperProvider theme={dark ? darkTheme : lightTheme}>
+                <NavigationContainer theme={dark ? darkTheme : lightTheme}>
+                    {user ? ( // Logged in
+                        <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />} screenOptions={{ headerRight: () => <Header /> }}>
+                            <Drawer.Screen name="Schedule" component={ScheduleScreen} />
+                            <Drawer.Screen name="Profile" component={ProfileScreen} />
+                        </Drawer.Navigator>
+                    ) : ( // Logged out
+                        <Stack.Navigator screenOptions={{ headerShown: false }}>
+                            <Stack.Screen name="Auth" component={LoginScreen} />
+                            <Stack.Screen name="Signup" component={SignupScreen} />
+                        </Stack.Navigator>
+                    )}
+                </NavigationContainer>
+            </PaperProvider>
+        </SiteContext.Provider>
     );
 }

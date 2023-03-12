@@ -1,8 +1,9 @@
 .container {
     justify-content: center;
     align-items: center;
-    height: 100%;
     flex-direction: column;
+    flex: 1;
+    position: relative;
 }
 
 .txt {
@@ -22,4 +23,12 @@
 
 .btn {
     margin-right: 20px;
+}
+
+.rc {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    flex-direction: row;
+    align-items: center;
 }

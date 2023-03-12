@@ -1,21 +1,21 @@
 import { StatusBar } from "expo-status-bar";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
-import { SafeAreaView, View } from "react-native";
-import { Button, Snackbar, Text, TextInput } from "react-native-paper";
+import { useContext, useState } from "react";
+import { KeyboardAvoidingView, View } from "react-native";
+import { Button, IconButton, Snackbar, Switch, Text, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { fauth, fuser } from "../lib/firebase";
+import SiteContext from "../lib/site-context";
 import styles from '../styles/login.scss'
 
 export default function SignupScreen() {
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(undefined);
-    let [showDropdown, setShowDropdown] = useState(false);
+    let { dark, setDark } = useContext(SiteContext);
 
     let [first_name, setFirstName] = useState("");
     let [last_name, setLastName] = useState("");
-    let [grad_year, setGradYear] = useState(undefined);
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
 
@@ -30,7 +30,7 @@ export default function SignupScreen() {
             let { user } = await createUserWithEmailAndPassword(fauth, email, password);
 
             // Enter user data
-            await setDoc(doc(fuser, user.uid), { first_name, last_name, grad_year });
+            await setDoc(doc(fuser, user.uid), { first_name, last_name });
         } catch (err) {
             // TODO - error handling
             setError(err.message);
@@ -41,7 +41,7 @@ export default function SignupScreen() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={{ ...styles.container }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <StatusBar hidden />
 
             <Text style={styles.txt}>Sign Up</Text>
@@ -62,7 +62,7 @@ export default function SignupScreen() {
                 <TextInput.Icon icon="lock" />
             } />
 
-            <View style={styles.inp}>
+            {/* <View style={styles.inp}>
                 <DropDown
                     label="Graduation Year"
                     mode="outlined"
@@ -73,13 +73,18 @@ export default function SignupScreen() {
                     setValue={setGradYear}
                     list={new Array(4).fill(new Date().getFullYear()).map((v, i) => ({ label: v + i + "", value: v + i + "" }))}
                 />
-            </View>
+            </View> */}
 
             <View style={styles.btncol}>
                 <Button style={styles.btn} icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={attemptSignup}>Sign Up</Button>
             </View>
 
             <Snackbar visible={error} onDismiss={() => setError(undefined)}>{error}</Snackbar>
-        </SafeAreaView>
+
+            <View style={styles.rc}>
+                <IconButton icon={dark ? "weather-night" : "weather-sunset"} size={30} />
+                <Switch style={styles.swt} value={dark} onValueChange={setDark} />
+            </View>
+        </KeyboardAvoidingView>
     );
 }

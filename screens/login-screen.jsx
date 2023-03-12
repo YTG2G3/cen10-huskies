@@ -1,14 +1,16 @@
 import { StatusBar } from "expo-status-bar";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
-import { SafeAreaView, View } from "react-native";
-import { Button, Snackbar, Text, TextInput } from "react-native-paper";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useContext, useState } from "react";
+import { KeyboardAvoidingView, View } from "react-native";
+import { Button, IconButton, Snackbar, Switch, Text, TextInput } from "react-native-paper";
 import { fauth } from "../lib/firebase";
+import SiteContext from "../lib/site-context";
 import styles from '../styles/login.scss';
 
 export default function LoginScreen({ navigation }) {
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(undefined);
+    let { dark, setDark } = useContext(SiteContext);
 
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
@@ -33,7 +35,7 @@ export default function LoginScreen({ navigation }) {
 
     // TODO - helpertext for textinputs
     return (
-        <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={{ ...styles.container }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <StatusBar hidden />
 
             <Text style={styles.txt}>Log In</Text>
@@ -49,10 +51,15 @@ export default function LoginScreen({ navigation }) {
             <View style={styles.btncol}>
                 <Button style={styles.btn} icon="login" loading={loading} disabled={loading} mode="contained" onPress={attemptLogin}>Log In</Button>
 
-                <Button icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={() => navigation.navigate("signup")}>Sign Up</Button>
+                <Button icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={() => navigation.navigate("Signup")}>Sign Up</Button>
             </View>
 
             <Snackbar visible={error} onDismiss={() => setError(undefined)}>{error}</Snackbar>
-        </SafeAreaView >
+
+            <View style={styles.rc}>
+                <IconButton icon={dark ? "weather-night" : "weather-sunset"} size={30} />
+                <Switch style={styles.swt} value={dark} onValueChange={setDark} />
+            </View>
+        </KeyboardAvoidingView >
     );
 }
