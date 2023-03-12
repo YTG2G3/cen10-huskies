@@ -1,3 +1,17 @@
 .container {
     flex: 1;
 }
+
+.modal {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    align-self: center;
+    justify-self: center;
+}
+
+.cen {
+    margin-bottom: 20px;
+    align-self: center;
+    font-size: 30;
+}
