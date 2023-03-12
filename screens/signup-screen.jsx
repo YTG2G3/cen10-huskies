@@ -4,7 +4,6 @@ import { doc, setDoc } from "firebase/firestore";
 import { useContext, useState } from "react";
 import { KeyboardAvoidingView, View } from "react-native";
 import { Button, IconButton, Snackbar, Switch, Text, TextInput } from "react-native-paper";
-import DropDown from "react-native-paper-dropdown";
 import { fauth, fuser } from "../lib/firebase";
 import SiteContext from "../lib/site-context";
 import styles from '../styles/login.scss'
