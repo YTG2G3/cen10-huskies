@@ -79,14 +79,25 @@ export default function EventsScreen() {
             </View>
 
             <Portal>
-                <Dialog contentContainerStyle={styles.modal} visible={selDay} onDismiss={() => setSelDay(undefined)}>
-                    {selDay ? <Text style={styles.cen}>{selDay.dateString}</Text> : undefined}
-                    {selDay ? marks[selDay.dateString] ? marks[selDay.dateString].dots.map((v, i) => (
-                        <View style={{ marginBottom: i < marks[selDay.dateString].dots.length - 1 ? 20 : 0, alignSelf: 'flex-start' }} key={i}>
-                            <Text style={{ color: events[v.key].important ? "red" : "black", alignSelf: 'flex-start' }}>#{i + 1}: {events[v.key].name} {events[v.key].important ? "(IMPORTANT!)" : undefined}</Text>
-                            <Text style={{ alignSelf: 'flex-start' }}>{events[v.key].description}</Text>
-                        </View>
-                    )) : <Text>No events scheduled...</Text> : undefined}
+                <Dialog style={styles.diag} visible={selDay} onDismiss={() => setSelDay(undefined)}>
+                    {selDay ? (
+                        <>
+                            <Dialog.Title>{selDay.dateString}</Dialog.Title>
+
+                            <Dialog.Content>
+                                {marks[selDay.dateString] ? (
+                                    marks[selDay.dateString].dots.map((v, i) => (
+                                        <View style={{ marginBottom: i < marks[selDay.dateString].dots.length - 1 ? 20 : 0 }} key={i}>
+                                            <Text style={{ color: events[v.key].important ? "#F24343" : dark ? "white" : "black" }}>#{i + 1}: {events[v.key].name} {events[v.key].important ? "(IMPORTANT!)" : undefined}</Text>
+                                            <Text style={{ alignSelf: 'flex-start' }}>{events[v.key].description}</Text>
+                                        </View>
+                                    ))
+                                ) : (
+                                    <Text>No events scheduled...</Text>
+                                )}
+                            </Dialog.Content>
+                        </>
+                    ) : undefined}
                 </Dialog>
             </Portal>
         </SafeAreaView>

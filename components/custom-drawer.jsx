@@ -1,8 +1,8 @@
 import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { signOut } from "firebase/auth";
-import { addDoc, doc } from "firebase/firestore";
+import { addDoc } from "firebase/firestore";
 import { useContext, useState } from "react";
-import { KeyboardAvoidingView, View } from "react-native";
+import { View } from "react-native";
 import { Button, Dialog, Portal, Snackbar, TextInput } from "react-native-paper";
 import { fauth, freport } from "../lib/firebase";
 import SiteContext from "../lib/site-context";
@@ -32,6 +32,7 @@ export default function CustomDrawer(props) {
         setInc("");
     }
 
+    // TODO - keyboard avoiding modal
     return (
         <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
             <View style={styles.ite}>
@@ -43,18 +44,16 @@ export default function CustomDrawer(props) {
 
             <Portal>
                 <Dialog style={styles.diag} visible={rep} onDismiss={() => setRep(false)}>
-                    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                        <Dialog.Title>Report a bug</Dialog.Title>
+                    <Dialog.Title>Report a bug</Dialog.Title>
 
-                        <Dialog.Content>
-                            <TextInput value={inc} onChangeText={setInc} label="Inconvenience" />
-                        </Dialog.Content>
+                    <Dialog.Content>
+                        <TextInput value={inc} onChangeText={setInc} label="Inconvenience" />
+                    </Dialog.Content>
 
-                        <Dialog.Actions>
-                            <Button onPress={reportBug}>Submit</Button>
-                            <Button onPress={resetDiag}>Cancel</Button>
-                        </Dialog.Actions>
-                    </KeyboardAvoidingView>
+                    <Dialog.Actions>
+                        <Button onPress={reportBug}>Submit</Button>
+                        <Button onPress={resetDiag}>Cancel</Button>
+                    </Dialog.Actions>
                 </Dialog>
 
                 <Snackbar visible={snk} onDismiss={() => setSnk(false)}>Reported! Thank you for your cooperation.</Snackbar>
