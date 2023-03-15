@@ -15,3 +15,10 @@
     align-self: center;
     font-size: 30;
 }
+
+.ccc {
+    flex-direction: 'row';
+    flex-wrap: 'wrap';
+    align-items: 'flex-start';
+    flex: 1;
+}
