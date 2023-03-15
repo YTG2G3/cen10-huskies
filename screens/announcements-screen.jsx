@@ -1,8 +1,8 @@
 import { SafeAreaView } from "react-native";
 import { Text } from "react-native-paper";
 
-export default function ProfileScreen() {
-    // email, password, name change
+export default function AnnouncementsScreen() {
+
 
     return (
         <SafeAreaView>

@@ -39,7 +39,7 @@ export default function SplashScreen({ cb }) {
             <StatusBar hidden />
 
             <animated.View style={{ ...styles.container, ...fadeAnim, ...jumpAnim }}>
-                <Image style={{ width: logoDim * 0.8, height: logoDim * 0.8, maxWidth: logoMax, maxHeight: logoMax }} source={require('../assets/logo.png')} />
+                <Image style={{ width: logoDim * 0.8, height: logoDim * 0.8, maxWidth: logoMax, maxHeight: logoMax }} source={require('../assets/logo_tp.jpg')} />
                 <ActivityIndicator animating={loading} size="small" />
             </animated.View>
         </SafeAreaView>

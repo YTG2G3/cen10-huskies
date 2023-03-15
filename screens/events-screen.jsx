@@ -1,9 +1,9 @@
 import { add, format } from "date-fns";
 import { getDocs } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { List, Modal, Portal, Surface, Text } from "react-native-paper";
+import { Dialog, List, Modal, Portal, Text } from "react-native-paper";
 import { fevent } from "../lib/firebase";
 import SiteContext from "../lib/site-context";
 import { lightTheme } from "../lib/theme";
@@ -33,7 +33,7 @@ export default function EventsScreen() {
             let d = format(e.date.toDate(), "yyyy-MM-dd");
             let p = tmp[d] ? [...tmp[d].dots] : [];
 
-            // Important stuff first
+            // Important events get priority
             let dots = e.important ? [{ key: ev.id, color: e.important ? "#F24343" : "#FAB9B9" }, ...p] : [...p, { key: ev.id, color: e.important ? "#F24343" : "#FAB9B9" }];
 
             tmp[d] = { dots, selected: e.important ? true : tmp[d]?.selected ?? false };
@@ -44,6 +44,7 @@ export default function EventsScreen() {
         setEvents(tt);
     }
 
+    // TODO - scrollable list
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -71,22 +72,22 @@ export default function EventsScreen() {
                 <List.Section title="Upcoming events">
                     {new Array(3).fill(0).map((x, i) => (
                         <List.Accordion id={i + ""} key={i} title={format(add(new Date(), { days: i }), "yyyy/MM/dd")}>
-                            {marks[format(add(new Date(), { days: i }), "yyyy-MM-dd")]?.dots.map((v, ii) => <List.Item key={ii} title={events[v.key]?.name} description={events[v.key]?.description} left={() => <List.Icon color={events[v.key]?.important ? "#F24343" : undefined} icon={events[v.key]?.important ? "exclamation" : "pound"} />} />)}
+                            {marks[format(add(new Date(), { days: i }), "yyyy-MM-dd")]?.dots.map((v, ii) => <List.Item key={ii} style={styles.item} title={events[v.key]?.name} description={events[v.key]?.description} left={() => <List.Icon color={events[v.key]?.important ? "#F24343" : undefined} icon={events[v.key]?.important ? "exclamation" : "pound"} />} />)}
                         </List.Accordion>
                     ))}
                 </List.Section>
             </View>
 
             <Portal>
-                <Modal contentContainerStyle={styles.modal} visible={selDay} onDismiss={() => setSelDay(undefined)}>
-                    {selDay ? <Text theme={lightTheme} style={styles.cen}>{selDay.dateString}</Text> : undefined}
-                    {selDay ? marks[selDay.dateString].dots.map((v, i) => (
+                <Dialog contentContainerStyle={styles.modal} visible={selDay} onDismiss={() => setSelDay(undefined)}>
+                    {selDay ? <Text style={styles.cen}>{selDay.dateString}</Text> : undefined}
+                    {selDay ? marks[selDay.dateString] ? marks[selDay.dateString].dots.map((v, i) => (
                         <View style={{ marginBottom: i < marks[selDay.dateString].dots.length - 1 ? 20 : 0, alignSelf: 'flex-start' }} key={i}>
-                            <Text theme={lightTheme} style={{ color: events[v.key].important ? "red" : "black", alignSelf: 'flex-start' }}>#{i + 1}: {events[v.key].name} {events[v.key].important ? "(IMPORTANT!)" : undefined}</Text>
-                            <Text theme={lightTheme} style={{ alignSelf: 'flex-start' }}>{events[v.key].description}</Text>
+                            <Text style={{ color: events[v.key].important ? "red" : "black", alignSelf: 'flex-start' }}>#{i + 1}: {events[v.key].name} {events[v.key].important ? "(IMPORTANT!)" : undefined}</Text>
+                            <Text style={{ alignSelf: 'flex-start' }}>{events[v.key].description}</Text>
                         </View>
-                    )) : undefined}
-                </Modal>
+                    )) : <Text>No events scheduled...</Text> : undefined}
+                </Dialog>
             </Portal>
         </SafeAreaView>
     );

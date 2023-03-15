@@ -22,9 +22,6 @@ Cen10 Huskies was specifically created for Centennial High School to facilitate 
 - React Navigation (Screen Navigation)
 - React Native Calendars (ft. Wix for the Calendar Component)
 
-## Future Advancements
-- Explicit content filtering on photos people upload
-
 ## Copyright
 All libraries and images/icons used are either open-sourced or sanctioned by the creator for usage.
 

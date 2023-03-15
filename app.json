@@ -4,23 +4,23 @@
         "slug": "cen10-huskies",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/logo.png",
+        "icon": "./assets/logo.jpg",
         "userInterfaceStyle": "light",
         "assetBundlePatterns": [
             "**/*"
         ],
         "ios": {
             "supportsTablet": true,
-            "icon": "./assets/logo.png"
+            "icon": "./assets/logo.jpg"
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/logo.png",
+                "foregroundImage": "./assets/logo_tp.jpg",
                 "backgroundColor": "#ffffff"
             }
         },
         "web": {
-            "favicon": "./assets/logo.png"
+            "favicon": "./assets/logo_tp.jpg"
         },
         "packagerOpts": {
             "config": "metro.config.js",
