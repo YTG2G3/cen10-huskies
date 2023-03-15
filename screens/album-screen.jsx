@@ -37,7 +37,9 @@ export default function AlbumScreen() {
             />
 
             <Portal>
-                <Surface></Surface>
+                <Surface>
+
+                </Surface>
             </Portal>
         </ScrollView>
     );
