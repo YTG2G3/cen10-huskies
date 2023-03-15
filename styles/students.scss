@@ -19,3 +19,29 @@
 .inp {
     margin-bottom: 20px;
 }
+
+.pen {
+    flex-direction: row;
+    align-items: center;
+}
+
+.img {
+    width: 80px;
+    height: 80px;
+    margin-left: 15px;
+}
+
+.lt {
+    font-size: 25px;
+}
+
+.st {
+    font-size: 15px;
+}
+
+.ls {
+    margin-left: 15px;
+    flex: 1;
+}
+
+.ll {}
