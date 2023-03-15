@@ -22,6 +22,7 @@ export default function CustomDrawer(props) {
 
     // Report on /bug
     const reportBug = async () => {
+        // TODO - check input
         resetDiag();
         await addDoc(freport, { uid: fauth.currentUser.uid, inc });
         setSnk(true);
@@ -39,7 +40,7 @@ export default function CustomDrawer(props) {
                 <DrawerItemList {...props} />
             </View>
 
-            <Button style={styles.btn} mode="contained" icon="bug" onPress={() => setRep(true)}>Report Bug</Button>
+            <Button style={styles.btn} mode="contained" icon="bug" onPress={() => setRep(true)}>Bug Report</Button>
             <Button style={styles.btn} mode="contained" icon="logout" onPress={logout}>Logout</Button>
 
             <Portal>

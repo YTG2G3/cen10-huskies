@@ -61,19 +61,6 @@ export default function SignupScreen() {
                 <TextInput.Icon icon="lock" />
             } />
 
-            {/* <View style={styles.inp}>
-                <DropDown
-                    label="Graduation Year"
-                    mode="outlined"
-                    visible={showDropdown}
-                    showDropDown={() => setShowDropdown(true)}
-                    onDismiss={() => setShowDropdown(false)}
-                    value={grad_year}
-                    setValue={setGradYear}
-                    list={new Array(4).fill(new Date().getFullYear()).map((v, i) => ({ label: v + i + "", value: v + i + "" }))}
-                />
-            </View> */}
-
             <View style={styles.btncol}>
                 <Button style={styles.btn} icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={attemptSignup}>Sign Up</Button>
             </View>
