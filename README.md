@@ -11,7 +11,7 @@
 
 > Who let the dogs out!
 
-Cen10 Huskies was specifically created for Centennial High School to facilitate communication among students, parents, and campus staff. The name of the program was derived from a previous version of our school's primary app, which was developed years ago and has since been discontinued. Cen10 Huskies offers a customized schedule display that reflects the current day of the week, highlights upcoming school events on a shared calendar, and includes a feature for sharing photos through blogs. Additionally, parents can conveniently report student absences through the app, and school officials can use the notification system to issue timely announcements, including emergency alerts.
+Cen10 Huskies was specifically created for Centennial High School to facilitate communication among students, parents, and campus staff. The name of the program was derived from a previous version of our school's primary app, which was developed years ago and has since been discontinued. Cen10 Huskies highlights upcoming school events on a shared calendar, and includes a feature for sharing photos throughout the community. Furthermore, parents can conveniently report student absences through the app, and school officials can use the notification system to issue timely announcements, including emergency alerts.
 
 ## Core Libraries
 - Firebase (Authentication & Database)
