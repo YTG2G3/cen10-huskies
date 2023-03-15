@@ -6,5 +6,6 @@ import SignupScreen from "./signup-screen";
 import ProfileScreen from "./profile-screen";
 import StudentsScreen from "./students-screen";
 import AnnouncementsScreen from "./announcements-screen";
+import AlbumScreen from "./album-screen";
 
-export { SplashScreen, LoginScreen, EventsScreen, SignupScreen, ProfileScreen, StudentsScreen, AnnouncementsScreen }
+export { SplashScreen, LoginScreen, EventsScreen, SignupScreen, ProfileScreen, StudentsScreen, AnnouncementsScreen, AlbumScreen }
