@@ -1,5 +1,6 @@
 import { addDoc, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Image, SafeAreaView, ScrollView, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Avatar, Button, Dialog, Portal, Snackbar, Surface, Text, TextInput } from "react-native-paper";
@@ -8,6 +9,7 @@ import { fauth, freport, fstudent } from "../lib/firebase";
 import styles from '../styles/students.scss';
 
 export default function StudentsScreen() {
+    const { t } = useTranslation();
     let [amd, setAmd] = useState(false);
     let [showDropdown, setShowDropdown] = useState(false);
     let [grad_year, setGradYear] = useState(undefined);
@@ -79,8 +81,8 @@ export default function StudentsScreen() {
                         </View>
 
                         <View style={{ ...styles.pen, marginRight: 15 }}>
-                            <Button onPress={() => reportAbsence(i)} mode="contained">Report Absence</Button>
-                            <Button onPress={() => removeStudent(i)}>Remove</Button>
+                            <Button onPress={() => reportAbsence(i)} mode="contained">{t("ReportAbsence")}</Button>
+                            <Button onPress={() => removeStudent(i)}>{t("Remove")}</Button>
                         </View>
                     </Surface>
                 ))}
@@ -94,13 +96,13 @@ export default function StudentsScreen() {
 
             <Portal>
                 <Dialog style={styles.diag} visible={amd} onDismiss={() => setAmd(false)}>
-                    <Dialog.Title>Add New Student</Dialog.Title>
+                    <Dialog.Title>{t("AddStudentTitle")}</Dialog.Title>
 
                     <Dialog.Content>
-                        <TextInput style={styles.inp} value={name} onChangeText={setName} label="Student Full Name" />
-                        <TextInput style={styles.inp} value={sid} onChangeText={setSid} label="Student # (6 digits)" />
+                        <TextInput style={styles.inp} value={name} onChangeText={setName} label={t("StudentFullName")} />
+                        <TextInput style={styles.inp} value={sid} onChangeText={setSid} label={t("StudentNumber")} />
                         <DropDown
-                            label="Graduation Year"
+                            label={t("GraduationYear")}
                             mode="outlined"
                             visible={showDropdown}
                             showDropDown={() => setShowDropdown(true)}
@@ -112,8 +114,8 @@ export default function StudentsScreen() {
                     </Dialog.Content>
 
                     <Dialog.Actions>
-                        <Button style={{ marginRight: 10 }} onPress={addStudent}>Add</Button>
-                        <Button onPress={resetDiag}>Cancel</Button>
+                        <Button style={{ marginRight: 10 }} onPress={addStudent}>{t("Add")}</Button>
+                        <Button onPress={resetDiag}>{t("Cancel")}</Button>
                     </Dialog.Actions>
                 </Dialog>
 
