@@ -13,6 +13,7 @@ import SiteContext from "./lib/site-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from "./components/header";
 import CustomDrawer from "./components/custom-drawer";
+import "./lib/i18n";
 
 // Auth navigator
 const Stack = createNativeStackNavigator();
