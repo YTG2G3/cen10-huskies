@@ -40,20 +40,20 @@ export default function LoginScreen({ navigation }) {
         <KeyboardAvoidingView style={{ ...styles.container }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <StatusBar hidden />
 
-            <Text style={styles.txt}>{t("LogInTitle")}</Text>
+            <Text style={styles.txt}>{t("LogIn")}</Text>
 
-            <TextInput style={styles.inp} label="Email" value={email} onChangeText={setEmail} left={
+            <TextInput style={styles.inp} label={t("EmailLabel")} value={email} onChangeText={setEmail} left={
                 <TextInput.Icon icon="email" />
             } />
 
-            <TextInput style={styles.inp} label="Password" secureTextEntry value={password} onChangeText={setPassword} left={
+            <TextInput style={styles.inp} label={t("PasswordLabel")} secureTextEntry value={password} onChangeText={setPassword} left={
                 <TextInput.Icon icon="lock" />
             } />
 
             <View style={styles.btncol}>
-                <Button style={styles.btn} icon="login" loading={loading} disabled={loading} mode="contained" onPress={attemptLogin}>Log In</Button>
+                <Button style={styles.btn} icon="login" loading={loading} disabled={loading} mode="contained" onPress={attemptLogin}>{t("LogIn")}</Button>
 
-                <Button icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={() => navigation.navigate("Signup")}>Sign Up</Button>
+                <Button icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={() => navigation.navigate("Signup")}>{t("SignUpButton")}</Button>
             </View>
 
             <Snackbar visible={error} onDismiss={() => setError(undefined)}>{error}</Snackbar>
