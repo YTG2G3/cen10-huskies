@@ -95,7 +95,7 @@ export default function EventsScreen() {
                                         </View>
                                     ))
                                 ) : (
-                                    <Text>No events scheduled...</Text>
+                                    <Text>{t("NoEvents")}</Text>
                                 )}
                             </Dialog.Content>
                         </>
