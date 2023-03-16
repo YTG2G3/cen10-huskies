@@ -1,6 +1,7 @@
 import { add, format } from "date-fns";
 import { getDocs } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView, View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { Dialog, List, Modal, Portal, Text } from "react-native-paper";
@@ -10,6 +11,7 @@ import { lightTheme } from "../lib/theme";
 import styles from '../styles/events.scss';
 
 export default function EventsScreen() {
+    const { t } = useTranslation();
     let { dark } = useContext(SiteContext);
     let [marks, setMarks] = useState({});
     let [events, setEvents] = useState({});

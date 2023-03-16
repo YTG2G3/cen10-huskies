@@ -53,7 +53,7 @@ export default function LoginScreen({ navigation }) {
             <View style={styles.btncol}>
                 <Button style={styles.btn} icon="login" loading={loading} disabled={loading} mode="contained" onPress={attemptLogin}>{t("LogIn")}</Button>
 
-                <Button icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={() => navigation.navigate("Signup")}>{t("SignUpButton")}</Button>
+                <Button icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={() => navigation.navigate("Signup")}>{t("SignUp")}</Button>
             </View>
 
             <Snackbar visible={error} onDismiss={() => setError(undefined)}>{error}</Snackbar>

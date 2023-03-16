@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, View } from "react-native";
 import { Button, IconButton, Snackbar, Switch, Text, TextInput } from "react-native-paper";
 import { fauth, fuser } from "../lib/firebase";
@@ -9,6 +10,7 @@ import SiteContext from "../lib/site-context";
 import styles from '../styles/login.scss'
 
 export default function SignupScreen() {
+    const { t } = useTranslation();
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(undefined);
     let { dark, setDark } = useContext(SiteContext);
@@ -43,26 +45,26 @@ export default function SignupScreen() {
         <KeyboardAvoidingView style={{ ...styles.container }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <StatusBar hidden />
 
-            <Text style={styles.txt}>Sign Up</Text>
+            <Text style={styles.txt}>{t("SignUp")}</Text>
 
-            <TextInput style={styles.inp} label="First Name" value={first_name} onChangeText={setFirstName} left={
+            <TextInput style={styles.inp} label={t("FirstName")} value={first_name} onChangeText={setFirstName} left={
                 <TextInput.Icon icon="account" />
             } />
 
-            <TextInput style={styles.inp} label="Last Name" value={last_name} onChangeText={setLastName} left={
+            <TextInput style={styles.inp} label={t("LastName")} value={last_name} onChangeText={setLastName} left={
                 <TextInput.Icon icon="account" />
             } />
 
-            <TextInput style={styles.inp} label="Email" value={email} onChangeText={setEmail} left={
+            <TextInput style={styles.inp} label={t("EmailLabel")} value={email} onChangeText={setEmail} left={
                 <TextInput.Icon icon="email" />
             } />
 
-            <TextInput style={styles.inp} label="Password" secureTextEntry value={password} onChangeText={setPassword} left={
+            <TextInput style={styles.inp} label={t("PasswordLabel")} secureTextEntry value={password} onChangeText={setPassword} left={
                 <TextInput.Icon icon="lock" />
             } />
 
             <View style={styles.btncol}>
-                <Button style={styles.btn} icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={attemptSignup}>Sign Up</Button>
+                <Button style={styles.btn} icon="account-plus" loading={loading} disabled={loading} mode="contained" onPress={attemptSignup}>{t("SignUp")}</Button>
             </View>
 
             <Snackbar visible={error} onDismiss={() => setError(undefined)}>{error}</Snackbar>
