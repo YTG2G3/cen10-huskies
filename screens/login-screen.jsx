@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, View } from "react-native";
 import { Button, IconButton, Snackbar, Switch, Text, TextInput } from "react-native-paper";
 import { fauth } from "../lib/firebase";
@@ -8,6 +9,7 @@ import SiteContext from "../lib/site-context";
 import styles from '../styles/login.scss';
 
 export default function LoginScreen({ navigation }) {
+    const { t } = useTranslation();
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(undefined);
     let { dark, setDark } = useContext(SiteContext);
@@ -38,7 +40,7 @@ export default function LoginScreen({ navigation }) {
         <KeyboardAvoidingView style={{ ...styles.container }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <StatusBar hidden />
 
-            <Text style={styles.txt}>Log In</Text>
+            <Text style={styles.txt}>{t("LogInTitle")}</Text>
 
             <TextInput style={styles.inp} label="Email" value={email} onChangeText={setEmail} left={
                 <TextInput.Icon icon="email" />
