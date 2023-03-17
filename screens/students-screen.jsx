@@ -17,6 +17,8 @@ export default function StudentsScreen() {
     let [sid, setSid] = useState("");
     let [snk, setSnk] = useState(undefined);
     let [students, setStudents] = useState([]);
+    let [reporting, setReporting] = useState(-1);
+    let [reason, setReason] = useState(undefined);
 
     // Load students
     useEffect(() => { loadData() }, []);
@@ -58,10 +60,12 @@ export default function StudentsScreen() {
     }
 
     // Report absence
-    const reportAbsence = async (index) => {
+    const reportAbsence = async () => {
         try {
-            await addDoc(freport, { uid: fauth.currentUser.uid, abs: students[index].id, req_at: new Date() });
-            setSnk(`Successfully reported absence for ${students[index].data().name}.`);
+            setReporting(-1);
+            setReason(undefined);
+            await addDoc(freport, { uid: fauth.currentUser.uid, abs: students[reporting].id, req_at: new Date(), reason });
+            setSnk(`Successfully reported absence for ${students[reporting].data().name}.`);
             loadData();
         } catch (err) {
             setSnk(err.message);
@@ -70,18 +74,18 @@ export default function StudentsScreen() {
 
     return (
         <SafeAreaView>
-            <ScrollView>
+            <ScrollView style={styles.pad}>
                 {students.map((v, i) => (
-                    <Surface style={{ ...styles.stu, ...styles.pen }}>
+                    <Surface key={i} style={{ ...styles.stu, ...styles.pen }}>
                         <Image style={styles.img} source={require('../assets/logo_tp.jpg')} />
 
                         <View style={styles.ls}>
                             <Text style={styles.lt}>{v.data().name}</Text>
-                            <Text style={styles.st}>{v.data().sid}</Text>
+                            <Text style={styles.st}>#{v.data().sid}</Text>
                         </View>
 
                         <View style={{ ...styles.pen, marginRight: 15 }}>
-                            <Button onPress={() => reportAbsence(i)} mode="contained">{t("ReportAbsence")}</Button>
+                            <Button style={{ marginRight: 10 }} onPress={() => setReporting(i)} mode="contained">{t("ReportAbsence")}</Button>
                             <Button onPress={() => removeStudent(i)}>{t("Remove")}</Button>
                         </View>
                     </Surface>
@@ -120,6 +124,36 @@ export default function StudentsScreen() {
                 </Dialog>
 
                 <Snackbar visible={snk} onDismiss={() => setSnk(undefined)}>{snk}</Snackbar>
+            </Portal>
+
+            <Portal>
+                <Dialog style={{ marginHorizontal: "40%" }} visible={reporting >= 0} onDismiss={() => setReporting(-1)}>
+                    <Dialog.Title>{t("ReportAbsence")}</Dialog.Title>
+
+                    <Dialog.Content>
+                        {reporting >= 0 ? (
+                            <DropDown
+                                label={t("Reasons")}
+                                mode="outlined"
+                                visible={showDropdown}
+                                showDropDown={() => setShowDropdown(true)}
+                                onDismiss={() => setShowDropdown(false)}
+                                value={reason}
+                                setValue={setReason}
+                                list={[
+                                    { label: "Medical Issues", value: "medical" },
+                                    { label: "Family Emergency", value: "family" },
+                                    { label: "Other...", value: "other" }
+                                ]}
+                            />
+                        ) : undefined}
+                    </Dialog.Content>
+
+                    <Dialog.Actions>
+                        <Button style={{ marginRight: 10 }} onPress={reportAbsence}>{t("Submit")}</Button>
+                        <Button onPress={resetDiag}>{t("Cancel")}</Button>
+                    </Dialog.Actions>
+                </Dialog>
             </Portal>
         </SafeAreaView>
     );
