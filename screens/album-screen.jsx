@@ -8,6 +8,8 @@ const { width } = Dimensions.get('window');
 import styles from '../styles/album.scss';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import { useTranslation } from "react-i18next";
+import { shareAsync } from 'expo-sharing';
+import { createDownloadResumable, cacheDirectory } from 'expo-file-system';
 
 export default function AlbumScreen() {
     const { t } = useTranslation();
@@ -70,6 +72,14 @@ export default function AlbumScreen() {
         loadData();
     }
 
+    // Share this item
+    const shareImage = async (uri) => {
+        let down = createDownloadResumable(uri, cacheDirectory + Math.floor(Math.random() * 1000) + ".png");
+
+        let t = await down.downloadAsync();
+        shareAsync(t.uri);
+    }
+
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <FlatList
@@ -77,7 +87,7 @@ export default function AlbumScreen() {
                 contentContainerStyle={{ alignSelf: 'flex-start' }}
                 numColumns={5}
                 data={cache}
-                renderItem={({ item }) => <Image resizeMode="contain" style={{ width: width / 5, height: width / 5 }} source={{ uri: item.file }} />}
+                renderItem={({ item }) => <TouchableOpacity onPress={() => shareImage(item.file)}><Image resizeMode="contain" style={{ width: width / 5, height: width / 5 }} source={{ uri: item.file }} /></TouchableOpacity>}
             />
 
             <Portal style={styles.btncon}>

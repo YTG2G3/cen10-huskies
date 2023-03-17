@@ -6,7 +6,7 @@
 
 ## Introduction
 <p align="center">
-  <img src="https://github.com/YTG2G3/cen10-huskies/blob/main/assets/logo.png?raw=true" />
+  <img src="https://github.com/YTG2G3/cen10-huskies/tree/main/assets/logo.png?raw=true" />
 </p>
 
 > Who let the dogs out!
@@ -16,11 +16,12 @@ Cen10 Huskies was specifically created for Centennial High School to facilitate 
 ## Core Libraries
 - Firebase (Authentication & Database)
 - React Native & Expo (Cross-platform Development)
+- React Navigation (Screen Navigation)
 - React Spring (Animation)
 - Google Fonts (Poppins)
 - React Native Paper (Material Design & Components)
-- React Navigation (Screen Navigation)
 - React Native Calendars (ft. Wix for the Calendar Component)
+- i18Next (Language Localization)
 
 ## Copyright
 All libraries and images/icons used are either open-sourced or sanctioned by the creator for usage.
