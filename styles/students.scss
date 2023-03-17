@@ -32,7 +32,8 @@
 .img {
     width: 80px;
     height: 80px;
-    margin-left: 15px;
+    margin: 15px;
+    border-radius: 50px;
 }
 
 .lt {
@@ -44,6 +45,5 @@
 }
 
 .ls {
-    margin-left: 15px;
     flex: 1;
 }

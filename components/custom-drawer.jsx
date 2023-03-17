@@ -3,15 +3,15 @@ import { signOut } from "firebase/auth";
 import { addDoc } from "firebase/firestore";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
-import { Button, Dialog, Portal, Snackbar, TextInput } from "react-native-paper";
+import { Image, View } from "react-native";
+import { Button, Dialog, Divider, Portal, Snackbar, Text, TextInput } from "react-native-paper";
 import { fauth, freport } from "../lib/firebase";
 import SiteContext from "../lib/site-context";
 import styles from '../styles/custom-drawer.scss';
 
 export default function CustomDrawer(props) {
     const { t } = useTranslation();
-    let { setUser } = useContext(SiteContext);
+    let { setUser, dark } = useContext(SiteContext);
     let [rep, setRep] = useState(false);
     let [inc, setInc] = useState("");
     let [snk, setSnk] = useState(false);
@@ -38,6 +38,13 @@ export default function CustomDrawer(props) {
     // TODO - keyboard avoiding modal
     return (
         <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
+            <View style={styles.log}>
+                <Image style={styles.tinylogo} source={dark ? require("../assets/logo.jpg") : require("../assets/logo_tp.jpg")} />
+                <Text style={styles.til}>Cen10 Huskies</Text>
+            </View>
+
+            <Divider style={{ marginBottom: 10 }} />
+
             <View style={styles.ite}>
                 <DrawerItemList  {...props} />
             </View>

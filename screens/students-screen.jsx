@@ -1,16 +1,18 @@
 import { addDoc, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, SafeAreaView, ScrollView, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Avatar, Button, Dialog, Portal, Snackbar, Surface, Text, TextInput } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { fauth, freport, fstudent } from "../lib/firebase";
+import SiteContext from "../lib/site-context";
 import styles from '../styles/students.scss';
 
 export default function StudentsScreen() {
     const { t } = useTranslation();
     let [amd, setAmd] = useState(false);
+    let { dark } = useContext(SiteContext);
     let [showDropdown, setShowDropdown] = useState(false);
     let [grad_year, setGradYear] = useState(undefined);
     let [name, setName] = useState("");
@@ -77,7 +79,7 @@ export default function StudentsScreen() {
             <ScrollView style={styles.pad}>
                 {students.map((v, i) => (
                     <Surface key={i} style={{ ...styles.stu, ...styles.pen }}>
-                        <Image style={styles.img} source={require('../assets/logo_tp.jpg')} />
+                        <Image style={styles.img} source={dark ? require("../assets/logo.jpg") : require("../assets/logo_tp.jpg")} />
 
                         <View style={styles.ls}>
                             <Text style={styles.lt}>{v.data().name}</Text>

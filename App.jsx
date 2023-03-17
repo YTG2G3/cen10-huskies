@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { lightTheme, darkTheme } from "./lib/theme";
-import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { useEffect, useState } from "react";
 import { fauth, fuser } from "./lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -35,7 +35,7 @@ export default function App() {
     let [splash, setSplash] = useState(true);
 
     // Load font
-    const [fontLoaded] = useFonts({ Poppins_400Regular });
+    const [fontLoaded] = useFonts({ Poppins_400Regular, Poppins_700Bold });
 
     // Listen to auth changes
     useEffect(() => {
