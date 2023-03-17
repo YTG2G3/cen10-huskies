@@ -1,13 +1,15 @@
 import { sendPasswordResetEmail, updateEmail } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
-import { KeyboardAvoidingView, SafeAreaView, View } from "react-native";
-import { Button, Divider, Snackbar, Surface, Text, TextInput } from "react-native-paper";
+import { useTranslation } from "react-i18next";
+import { KeyboardAvoidingView, View } from "react-native";
+import { Button, Divider, Snackbar, Text, TextInput } from "react-native-paper";
 import { fauth, fuser } from "../lib/firebase";
 import SiteContext from "../lib/site-context";
 import styles from '../styles/profile.scss';
 
 export default function ProfileScreen() {
+    const { t } = useTranslation();
     let [first_name, setFirstName] = useState("");
     let [last_name, setLastName] = useState("");
     let [email, setEmail] = useState("");
@@ -46,17 +48,17 @@ export default function ProfileScreen() {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <Text style={styles.txt}>Change Information</Text>
+            <Text style={styles.txt}>{t("ChInfo")}</Text>
 
             <Divider bold={true} style={styles.div} />
 
-            <TextInput style={styles.inp} value={first_name} onChangeText={setFirstName} label="First Name" />
-            <TextInput style={styles.inp} value={last_name} onChangeText={setLastName} label="Last Name" />
-            <TextInput style={styles.inp} value={email} onChangeText={setEmail} label="Email" />
+            <TextInput style={styles.inp} value={first_name} onChangeText={setFirstName} label={t("FirstName")} />
+            <TextInput style={styles.inp} value={last_name} onChangeText={setLastName} label={t("LastName")} />
+            <TextInput style={styles.inp} value={email} onChangeText={setEmail} label={t("EmailLabel")} />
 
             <View style={styles.act}>
-                <Button mode="contained" onPress={saveInfo}>Save</Button>
-                <Button onPress={resetPw}>Reset Password</Button>
+                <Button mode="contained" onPress={saveInfo}>{t("Save")}</Button>
+                <Button onPress={resetPw}>{t("ResetPw")}</Button>
             </View>
 
             <Snackbar visible={sb} onDismiss={() => setSb(undefined)}>{sb}</Snackbar>

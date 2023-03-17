@@ -4,10 +4,9 @@ import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView, View } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { Dialog, List, Modal, Portal, Text } from "react-native-paper";
+import { Dialog, List, Portal, Text } from "react-native-paper";
 import { fevent } from "../lib/firebase";
 import SiteContext from "../lib/site-context";
-import { lightTheme } from "../lib/theme";
 import styles from '../styles/events.scss';
 
 export default function EventsScreen() {
@@ -71,7 +70,7 @@ export default function EventsScreen() {
                     onDayPress={setSelDay}
                 />
 
-                <List.Section title="Upcoming events">
+                <List.Section title={t("Upcoming")}>
                     {new Array(3).fill(0).map((x, i) => (
                         <List.Accordion id={i + ""} key={i} title={format(add(new Date(), { days: i }), "yyyy/MM/dd")}>
                             {marks[format(add(new Date(), { days: i }), "yyyy-MM-dd")]?.dots.map((v, ii) => <List.Item key={ii} style={styles.item} title={events[v.key]?.name} description={events[v.key]?.description} left={() => <List.Icon color={events[v.key]?.important ? "#F24343" : undefined} icon={events[v.key]?.important ? "exclamation" : "pound"} />} />)}
@@ -90,7 +89,7 @@ export default function EventsScreen() {
                                 {marks[selDay.dateString] ? (
                                     marks[selDay.dateString].dots.map((v, i) => (
                                         <View style={{ marginBottom: i < marks[selDay.dateString].dots.length - 1 ? 20 : 0 }} key={i}>
-                                            <Text style={{ color: events[v.key].important ? "#F24343" : dark ? "white" : "black" }}>#{i + 1}: {events[v.key].name} {events[v.key].important ? "(IMPORTANT!)" : undefined}</Text>
+                                            <Text style={{ color: events[v.key].important ? "#F24343" : dark ? "white" : "black" }}>#{i + 1}: {events[v.key].name} {events[v.key].important ? t("Important") : undefined}</Text>
                                             <Text style={{ alignSelf: 'flex-start' }}>{events[v.key].description}</Text>
                                         </View>
                                     ))

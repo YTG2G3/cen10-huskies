@@ -47,6 +47,8 @@ export default function StudentsScreen() {
         setGradYear(undefined);
         setName("");
         setSid("");
+        setReason(undefined);
+        setReporting(-1);
         loadData();
     }
 
@@ -64,8 +66,7 @@ export default function StudentsScreen() {
     // Report absence
     const reportAbsence = async () => {
         try {
-            setReporting(-1);
-            setReason(undefined);
+            resetDiag();
             await addDoc(freport, { uid: fauth.currentUser.uid, abs: students[reporting].id, req_at: new Date(), reason });
             setSnk(`Successfully reported absence for ${students[reporting].data().name}.`);
             loadData();
