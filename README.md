@@ -2,11 +2,11 @@
 
 ## Team
 **Head Developer:** Taeksoo Kwon\
-**Junior Developer:** Patrick Chung, Ronnie Kim
+**Junior Developer:** Patrick Chung, David McDougall
 
 ## Introduction
 <p align="center">
-  <img src="https://github.com/YTG2G3/cen10-huskies/tree/main/assets/logo.png?raw=true" />
+  <img src="https://github.com/YTG2G3/cen10-huskies/blob/main/assets/logo.jpg?raw=true" />
 </p>
 
 > Who let the dogs out!
