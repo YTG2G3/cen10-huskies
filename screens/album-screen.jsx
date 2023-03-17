@@ -1,10 +1,10 @@
 import { getDownloadURL, listAll } from "firebase/storage";
 import { useEffect, useState } from "react";
-import { Dimensions, Image, SafeAreaView } from "react-native";
+import { Dimensions, Image, SafeAreaView, TouchableOpacity } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { Portal, Surface, Text } from "react-native-paper";
+import { IconButton, Portal, Surface, Text } from "react-native-paper";
 import { falbum } from "../lib/firebase";
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 import styles from '../styles/album.scss';
 
 export default function AlbumScreen() {
@@ -26,6 +26,9 @@ export default function AlbumScreen() {
         setCache(tmp);
     }
 
+    // Add new image
+
+
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <FlatList
@@ -36,10 +39,12 @@ export default function AlbumScreen() {
                 renderItem={({ item }) => <Image resizeMode="contain" style={{ width: width / 5, height: width / 5 }} source={{ uri: item.file }} />}
             />
 
-            <Portal>
-                <Surface>
-
-                </Surface>
+            <Portal style={styles.btncon}>
+                <TouchableOpacity style={styles.btnpress}>
+                    <Surface style={styles.btnwrap}>
+                        <IconButton size={40} icon="plus" />
+                    </Surface>
+                </TouchableOpacity>
             </Portal>
         </ScrollView>
     );

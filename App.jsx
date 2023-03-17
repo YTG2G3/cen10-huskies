@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from "./components/header";
 import CustomDrawer from "./components/custom-drawer";
 import "./lib/i18n";
+import { useTranslation } from "react-i18next";
 
 // Auth navigator
 const Stack = createNativeStackNavigator();
@@ -22,6 +23,8 @@ const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+    const { t } = useTranslation();
+
     // User
     let [user, setUser] = useState(undefined);
 
@@ -77,15 +80,15 @@ export default function App() {
                 <NavigationContainer theme={dark ? darkTheme : lightTheme}>
                     {user ? ( // Logged in
                         <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />} screenOptions={{ headerRight: () => <Header /> }}>
-                            <Drawer.Screen name="Events" component={EventsScreen} />
-                            <Drawer.Screen name="Announcements" component={AnnouncementsScreen} />
-                            <Drawer.Screen name="My Students" component={StudentsScreen} />
-                            <Drawer.Screen name="Album" component={AlbumScreen} />
-                            <Drawer.Screen name="Profile" component={ProfileScreen} />
+                            <Drawer.Screen name={t("EventsTitle")} component={EventsScreen} />
+                            <Drawer.Screen name={t("AnnTitle")} component={AnnouncementsScreen} />
+                            <Drawer.Screen name={t("StudentsTitle")} component={StudentsScreen} />
+                            <Drawer.Screen name={t("AlbumTitle")} component={AlbumScreen} />
+                            <Drawer.Screen name={t("ProfileTitle")} component={ProfileScreen} />
                         </Drawer.Navigator>
                     ) : ( // Logged out
                         <Stack.Navigator screenOptions={{ headerShown: false }}>
-                            <Stack.Screen name="Auth" component={LoginScreen} />
+                            <Stack.Screen name="Login" component={LoginScreen} />
                             <Stack.Screen name="Signup" component={SignupScreen} />
                         </Stack.Navigator>
                     )}

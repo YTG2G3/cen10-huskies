@@ -39,7 +39,7 @@ export default function CustomDrawer(props) {
     return (
         <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
             <View style={styles.ite}>
-                <DrawerItemList {...props} />
+                <DrawerItemList  {...props} />
             </View>
 
             <Button style={styles.btn} mode="contained" icon="bug" onPress={() => setRep(true)}>{t("BugReport")}</Button>
