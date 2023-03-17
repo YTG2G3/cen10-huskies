@@ -1,4 +1,4 @@
-import { getDownloadURL, getMetadata, listAll, ref, uploadBytes, uploadString } from "firebase/storage";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { Dimensions, Image, TouchableOpacity } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
@@ -7,10 +7,11 @@ import { falbum, fstorage } from "../lib/firebase";
 const { width } = Dimensions.get('window');
 import styles from '../styles/album.scss';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
-import { compareAsc } from "date-fns";
 
 export default function AlbumScreen() {
     // TODO - cache with separated pages
+    // TODO - sort based on upload time not created time
+    // TODO - check who uploaded it and report option
     let [cache, setCache] = useState([]);
     let [snk, setSnk] = useState(undefined);
 
@@ -21,17 +22,7 @@ export default function AlbumScreen() {
         let a = await listAll(falbum);
         let tmp = [];
 
-        let d = a.items.sort(async (a, b) => {
-            let aa = await getMetadata(a);
-            let bb = await getMetadata(b);
-
-            let ax = new Date(aa.timeCreated);
-            let bx = new Date(bb.timeCreated);
-
-            return compareAsc(ax, bx);
-        });
-
-        for (let i of d) {
+        for (let i of a.items) {
             let uri = await getDownloadURL(i);
             tmp.push({ file: uri });
         }
