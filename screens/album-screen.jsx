@@ -7,8 +7,11 @@ import { falbum, fstorage } from "../lib/firebase";
 const { width } = Dimensions.get('window');
 import styles from '../styles/album.scss';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
+import { useTranslation } from "react-i18next";
 
 export default function AlbumScreen() {
+    const { t } = useTranslation();
+
     // TODO - cache with separated pages
     // TODO - sort based on upload time not created time
     // TODO - check who uploaded it and report option
@@ -45,7 +48,7 @@ export default function AlbumScreen() {
         // Upload details
         let { uri } = res.assets[0];
         let filename = uri.substring(uri.lastIndexOf('/') + 1);
-        setSnk(`Uploading ${filename}...`);
+        setSnk(`${t("Uploading")} ${filename}...`);
 
         // Start uploading
         let blob = await new Promise((resolve, reject) => {
@@ -63,7 +66,7 @@ export default function AlbumScreen() {
         await uploadBytes(ref(fstorage, `album/${Math.floor(Math.random() * 1000) + filename}`), blob);
 
         // Completed upload
-        setSnk("Completed image upload.");
+        setSnk(t("CompletedUp"));
         loadData();
     }
 
