@@ -7,7 +7,7 @@ import { fauth, fuser } from "./lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { LoginScreen, ProfileScreen, EventsScreen, SignupScreen, SplashScreen, StudentsScreen, AnnouncementsScreen, AlbumScreen } from "./screens";
+import { LoginScreen, ProfileScreen, EventsScreen, SignupScreen, SplashScreen, StudentsScreen, AlbumScreen } from "./screens";
 import 'react-native-gesture-handler';
 import SiteContext from "./lib/site-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -81,7 +81,6 @@ export default function App() {
                     {user ? ( // Logged in
                         <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />} screenOptions={{ headerRight: () => <Header /> }}>
                             <Drawer.Screen name={t("EventsTitle")} component={EventsScreen} />
-                            <Drawer.Screen name={t("AnnTitle")} component={AnnouncementsScreen} />
                             <Drawer.Screen name={t("StudentsTitle")} component={StudentsScreen} />
                             <Drawer.Screen name={t("AlbumTitle")} component={AlbumScreen} />
                             <Drawer.Screen name={t("ProfileTitle")} component={ProfileScreen} />
